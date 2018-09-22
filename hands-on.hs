@@ -23,3 +23,9 @@ overlayShape :: CharCanvas -> Shape -> [String]
 overlayShape (CharCanvas { width = w, height = h }) sh =
   ["Hello", "World", "!"]
 
+-- Usage: putStr $ unlines $ overlayCheckers $ CharCanvas 10 5
+overlayCheckers :: CharCanvas -> [String]
+overlayCheckers (CharCanvas { width = w, height = h }) =
+  let m = map (zip [1..w] . replicate w) [1..h] -- Create a column-major [[(1,1),(2,1),(3,1)],[(1,2),(2,2),(3,2) ...
+      onesZeroes = map (map $ \(x,y) -> ((x + y) `mod` 2)) m -- Convert m to [[0,1,0],[1,0,1],[0,1,0],[1,0,1]]
+  in map (map $ \(x) -> if x == 1 then ' ' else '#') onesZeroes -- Convert onesZeroes to ["# #"," # ","# #"," # "]
