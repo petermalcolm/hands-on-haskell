@@ -14,6 +14,12 @@ data Shape = Circle { center :: Point
 paintCanvas :: CharCanvas -> String
 paintCanvas (CharCanvas { width = w, height = h }) =
   topBtmBorder ++
-  (take (h * (w + 3)) (cycle $ "#" ++ (take w $ cycle " ") ++ "#\n") ) ++
+  (take (h * (w + 3)) (cycle $ "#" ++ (replicate w ' ') ++ "#\n") ) ++
+  -- unlines $ overlayShape CharCanvas (Rectangle {topLeft = Point 1.0 2.0, bottomRight = Point 3.0 4.0})
   topBtmBorder
-    where topBtmBorder = (take (w + 2) $ cycle "#") ++ "\n"
+    where topBtmBorder = (replicate (w + 2) '#') ++ "\n"
+
+overlayShape :: CharCanvas -> Shape -> [String]
+overlayShape (CharCanvas { width = w, height = h }) sh =
+  ["Hello", "World", "!"]
+
