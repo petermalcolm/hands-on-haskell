@@ -12,16 +12,18 @@ data Shape = Circle { center :: Point
                        } deriving (Show)
 
 paintCanvas :: CharCanvas -> String
-paintCanvas (CharCanvas { width = w, height = h }) =
+paintCanvas (CharCanvas w h) =
   topBtmBorder ++
   (take (h * (w + 3)) (cycle $ "#" ++ (replicate w ' ') ++ "#\n") ) ++
   -- unlines $ overlayShape CharCanvas (Rectangle {topLeft = Point 1.0 2.0, bottomRight = Point 3.0 4.0})
   topBtmBorder
     where topBtmBorder = (replicate (w + 2) '#') ++ "\n"
 
+-- Usage: putStr $ unlines $ overlayShape (CharCanvas 20 20) myRect
 overlayShape :: CharCanvas -> Shape -> [String]
-overlayShape (CharCanvas { width = w, height = h }) sh =
-  ["Hello", "World", "!"]
+overlayShape (CharCanvas w h) (Circle c r)      = ["circle!"]
+overlayShape (CharCanvas w h) (Rectangle tl br) = ["rectangle!"]
+
 
 -- Usage: putStr $ unlines $ overlayCheckers $ CharCanvas 10 5
 overlayCheckers :: CharCanvas -> [String]
