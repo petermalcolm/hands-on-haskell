@@ -52,3 +52,10 @@ overlayArbitrary canvas f  = map rowOperator coords
     rowOperator = map f
 
     coords = coordinatizer canvas -- get the canvas as a coordinate stream
+
+
+-- Usage: putStr $ unlines $ overlayCheckers $ CharCanvas 10 5
+overlayCheckers_UPDATE :: CharCanvas -> [String]
+overlayCheckers_UPDATE canvas = overlayArbitrary canvas onesZeroes
+  where onesZeroes (col, row) = if (col + row) `mod` 2 == 0 then '#' else ' ' 
+
